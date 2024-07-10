@@ -1,22 +1,29 @@
+// blog.js
+
 document.addEventListener('DOMContentLoaded', function() {
-    const blogPostsContainer = document.getElementById('blogPosts');
+    // Get blog posts from local storage
     const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
     
-    blogPosts.forEach(post => {
+    // Get the blog posts container
+    const blogPostsContainer = document.getElementById('blogPosts');
+    
+    // Display each blog post
+    blogPosts.forEach(function(post) {
         const postElement = document.createElement('div');
-        postElement.innerHTML = `
-            <h2>${post.title}</h2>
-            <p>${post.content}</p>
-            <p><em>By ${post.username}</em></p>
-        `;
+        postElement.classList.add('blog-post');
+        
+        const postTitle = document.createElement('h2');
+        postTitle.textContent = post.title;
+        postElement.appendChild(postTitle);
+        
+        const postAuthor = document.createElement('p');
+        postAuthor.textContent = `By: ${post.username}`;
+        postElement.appendChild(postAuthor);
+        
+        const postContent = document.createElement('p');
+        postContent.textContent = post.content;
+        postElement.appendChild(postContent);
+        
         blogPostsContainer.appendChild(postElement);
-    });
-
-    document.getElementById('toggleMode').addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-    });
-
-    document.getElementById('backButton').addEventListener('click', function() {
-        window.location.href = 'index.html';
     });
 });
